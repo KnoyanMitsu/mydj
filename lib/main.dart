@@ -1,8 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:mydj/data/data_provider.dart';
 import 'package:mydj/pages/simple_home_page.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyDjTI3C());
+  MyDjTI3C app = const MyDjTI3C();
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => DataProvider(),
+      child: const MyDjTI3C(),
+      )
+  );
 }
 
 class MyDjTI3C extends StatelessWidget {

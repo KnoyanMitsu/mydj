@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:mydj/data/data_provider.dart';
+import 'package:mydj/data/jurnal.dart';
+import 'package:provider/provider.dart';
+
 
 class BuatJurnalPages extends StatefulWidget {
   const BuatJurnalPages({super.key});
@@ -7,7 +11,49 @@ class BuatJurnalPages extends StatefulWidget {
   State<BuatJurnalPages> createState() => _BuatJurnalPagesState();
 }
 
+
+
 class _BuatJurnalPagesState extends State<BuatJurnalPages> {
+
+  String nama = '';
+  String kelas = '';
+  String mapel = '';
+  String tujuanPembelajaran = '';
+  String kegiatanPembelajaran = '';
+  String dimensiProfilPelajarPancasila = '';
+  String topik = '';
+
+  void _simpanJurnal(BuildContext context) {
+    Jurnal j = Jurnal(
+        nama: this.nama,
+        kelas: this.kelas,
+        mapel: this.mapel,
+        tujuanPembelajaran: this.tujuanPembelajaran,
+        kegiatanPembelajaran: this.kegiatanPembelajaran,
+        dimensiProfilePelajarPancasila: this.dimensiProfilPelajarPancasila,
+        materiTopikPembelajaran: this.topik);
+    DataProvider dp = context.read<DataProvider>();
+    dp.tambahJurnal(j);
+  }
+
+  Widget _textArea(String label, String info, String kontesk){
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(label),
+        SizedBox(height: 10,),
+        TextField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: info
+          ),
+          onChanged: (value) => {kontesk = value!},
+          maxLines: 4,
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,14 +67,14 @@ class _BuatJurnalPagesState extends State<BuatJurnalPages> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text('Kelas'),
+              Text('Nama'),
               SizedBox(height: 5,),
               TextField(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Masukan Kelas'
+                  labelText: 'Masukan Nama'
                 ),
-                onChanged: (value) => {},
+                onChanged: (value) => {nama = value},
               ),
               SizedBox(height: 10,),
               Text('Kelas'),
@@ -38,60 +84,38 @@ class _BuatJurnalPagesState extends State<BuatJurnalPages> {
                   border: OutlineInputBorder(),
                   labelText: 'Masukan Kelas'
                 ),
-                onChanged: (value) => {},
+                onChanged: (value) => {kelas = value},
               ),
               SizedBox(height: 10,),
-              Text('Jam ke-'),
+              Text('Mata Pelajaran'),
               SizedBox(height: 5,),
               DropdownButtonFormField<String>(
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Pilih Jam'
+                  labelText: 'Pilih Mata Pelajaran'
                 ),
                 items: [
-                  DropdownMenuItem(value: '1',child: Text('1'),),
-                  DropdownMenuItem(value: '2',child: Text('2'),),
-                  DropdownMenuItem(value: '3',child: Text('3'),),
-                  DropdownMenuItem(value: '4',child: Text('4'),),
-                  DropdownMenuItem(value: '5',child: Text('5'),),
-                  DropdownMenuItem(value: '6',child: Text('6'),),
-                  DropdownMenuItem(value: '7',child: Text('7'),),
-                  DropdownMenuItem(value: '8',child: Text('8'),),
+                    DropdownMenuItem(value: 'IPA', child: Text('IPA')),
+                    DropdownMenuItem(value: 'IPS', child: Text('IPS')),
+                    DropdownMenuItem(value: 'MATEMATIKA', child: Text('MATEMATIKA')),
+                    DropdownMenuItem(value: 'BAHASA INDONESIA', child: Text('BAHASA INDONESIA')),
+                    DropdownMenuItem(value: 'PKN', child: Text('PKN')),
+                    DropdownMenuItem(value: 'BAHASA JAWA', child: Text('BAHASA JAWA')),
+                    DropdownMenuItem(value: 'PENJAS', child: Text('PENJAS')),
+                    DropdownMenuItem(value: 'SBK', child: Text('SBK')),
                 ], 
-                onChanged: (value) => {}),
+                onChanged: (value) => {mapel = value!}),
               SizedBox(height: 10,),
-              Text('Tujuan Pembelajaran'),
               SizedBox(height: 5,),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Masukan Tujuan Pembelajaran'
-                ),
-                maxLines: 4,
-                onChanged: (value) => {},
-              ),
+              _textArea('Tujuan Pembelajaran', 'Masukkan Tujuan Pembelajaran', tujuanPembelajaran),
               SizedBox(height: 10,),
-              Text('Kegiatan Pembelajaran'),
+              _textArea('Materi/Topik Pembelajaran', 'Masukkan Materi/Topik Pembelajaran', topik),
               SizedBox(height: 5,),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                  labelText: 'Masukan Kegiatan Pembelajaran'
-                ),
-                maxLines: 4,
-                onChanged: (value) => {},
-              ),
+              _textArea('Kegiatan Pembelajaran', 'Masukkan Kegiatan Pembelajaran',kegiatanPembelajaran),
               SizedBox(height: 10,),
-              Text('Dimensi Profil Pelajar Pancasila'),
-              SizedBox(height: 5,),
-              TextField(
-                decoration: InputDecoration(
-                  border: OutlineInputBorder(),
-                ),
-                maxLines: 4,
-                onChanged: (value) => {},
-              ),
+              _textArea('Dimensi Profil Pelajar Pancasila', 'Masukkan Dimensi Profil Pelajar Pancasila',dimensiProfilPelajarPancasila),
               SizedBox(height: 10,),
+              ElevatedButton(onPressed: () => {_simpanJurnal(context)}, child: Text('Simpan'))
             ],
           ),
         ),
