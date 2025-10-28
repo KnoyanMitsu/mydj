@@ -8,7 +8,7 @@ void main() {
   runApp(
     ChangeNotifierProvider(
       create: (context) => DataProvider(),
-      child: const MyDjTI3C(),
+      child: app,
       )
   );
 }
