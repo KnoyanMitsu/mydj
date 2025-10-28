@@ -47,7 +47,7 @@ class _BuatJurnalPagesState extends State<BuatJurnalPages> {
             border: OutlineInputBorder(),
             labelText: info
           ),
-          onChanged: (value) => {kontesk = value!},
+          onChanged: (value) => {kontesk = value},
           maxLines: 4,
         )
       ],
