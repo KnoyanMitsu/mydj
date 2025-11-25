@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:mydj/pages/akun_pages.dart';
 import 'package:mydj/pages/buat_jurnal_pages.dart';
 import 'package:mydj/pages/lihat_jurnal_pages.dart';
-import 'package:mydj/pages/login_pages.dart';
 import 'package:mydj/pages/tentang_aplikasi_pages.dart';
 
 class SimpleHomePage extends StatefulWidget {
@@ -25,7 +25,7 @@ class _SimpleHomePageState extends State<SimpleHomePage>
       Navigator.push(context, MaterialPageRoute(builder: (context) => LihatJurnalPages(title: 'Lihat Jurnal'),));
     }
     void _openLoginPages(BuildContext context){
-      Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPages(),));
+      Navigator.push(context, MaterialPageRoute(builder: (context) => AkunPages(title: '',),));
     }
     void _openBuatJurnalPages(BuildContext context){
       Navigator.push(context, MaterialPageRoute(builder: (context) => BuatJurnalPages(),));
